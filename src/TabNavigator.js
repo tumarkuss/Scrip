@@ -41,10 +41,9 @@ const BottomTabNavigator = () => {
       />
       <Tab.Screen
         name="Notifications"
-        component={Notifications}
+        component={ContactStackNavigator}
         options={{
           tabBarLabel: 'Notifications',
-          headerShown:true,
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="bell" color={color} size={26} />
           ),
