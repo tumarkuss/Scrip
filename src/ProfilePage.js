@@ -12,7 +12,7 @@ export default class ProfilePage extends Component {
         <View style = {styles.header}>
             <View style = {styles.avatar}>
                 <Image 
-                    source={require('./img/logo_.png')}  
+                    source={require('./img/Image1.png')}  
                     style={styles.avatar} 
                 />
             </View>
@@ -32,7 +32,7 @@ export default class ProfilePage extends Component {
                     activeOpacity={0.6}
                     onPress={() => alert('Editing Profile Information')}>
                         <View style={styles.button}>
-                            <Text style={{fontSize: 15, fontFamily:'Avenir', marginRight: 5, marginBottom: -8, }}>edit</Text>
+                            <Text style={{fontSize: 15, marginRight: 5, marginBottom: -8, }}>edit</Text>
                         </View>
                     
                 </TouchableHighlight>
@@ -66,7 +66,7 @@ export default class ProfilePage extends Component {
                     activeOpacity={0.6}
                     onPress={() => alert('Membership history Page')}>
                         <View style={{marginLeft: 20, width: '1000%'}}>
-                            <Text style={{fontSize:20,fontFamily: 'Avenir',}}>
+                            <Text style={{fontSize:20}}>
                                 Membership History
                                 </Text>
                         </View>
@@ -79,7 +79,7 @@ export default class ProfilePage extends Component {
                     activeOpacity={0.6}
                     onPress={() => alert('Personal Preferences Page')}>
                         <View style={{marginLeft: 20, width: '1000%'}}>
-                            <Text style={{fontSize:20,fontFamily: 'Avenir',}}>
+                            <Text style={{fontSize:20}}>
                                 Your Preferences
                                 </Text>
                         </View>
@@ -92,7 +92,7 @@ export default class ProfilePage extends Component {
                     activeOpacity={0.6}
                     onPress={() => alert('Privacy Page')}>
                         <View style={{marginLeft: 20, width: '1000%'}}>
-                            <Text style={{fontSize:20,fontFamily: 'Avenir',}}>
+                            <Text style={{fontSize:20}}>
                                 Privacy
                                 </Text>
                         </View>
@@ -105,7 +105,7 @@ export default class ProfilePage extends Component {
                     activeOpacity={0.6}
                     onPress={() => alert('Notifications settings Page')}>
                         <View style={{marginLeft: 20, width: '1000%'}}>
-                            <Text style={{fontSize:20,fontFamily: 'Avenir',}}>
+                            <Text style={{fontSize:20}}>
                                 Notifications
                                 </Text>
                         </View>
@@ -118,7 +118,7 @@ export default class ProfilePage extends Component {
                     activeOpacity={0.6}
                     onPress={() => alert('Terms and Conditions Page')}>
                         <View style={{marginLeft: 20, width: '1000%'}}>
-                            <Text style={{fontSize:20,fontFamily: 'Avenir',}}>
+                            <Text style={{fontSize:20}}>
                                 Terms and Conditions
                                 </Text>
                         </View>
@@ -131,7 +131,7 @@ export default class ProfilePage extends Component {
                     activeOpacity={0.6}
                     onPress={() => alert('Help Page')}>
                         <View style={{marginLeft: 20, width: '1000%'}}>
-                            <Text style={{fontSize:20,fontFamily: 'Avenir',}}>
+                            <Text style={{fontSize:20}}>
                                 Help
                                 </Text>
                         </View>
@@ -144,7 +144,7 @@ export default class ProfilePage extends Component {
                     activeOpacity={0.6}
                     onPress={() => alert('Contact Us and resources Page')}>
                         <View style={{marginLeft: 20, width: '100%'}}>
-                            <Text style={{fontSize:20,fontFamily: 'Avenir',}}>
+                            <Text style={{fontSize:20}}>
                                 Contact Us
                                 </Text>
                         </View>
@@ -157,7 +157,7 @@ export default class ProfilePage extends Component {
                     activeOpacity={0.6}
                     onPress={() => alert('TAKES USER TO LOG IN PAGE and deleted Cache')}>
                         <View>
-                            <Text style={{fontSize:20,fontFamily: 'Avenir',}}>
+                            <Text style={{fontSize:20}}>
                                 Log Out
                             </Text>
                         </View>
@@ -198,7 +198,6 @@ container: {
   },
   headerText:{
     fontSize: 30,
-    fontFamily: 'Avenir',
     marginLeft: 30,
   },
   
@@ -224,16 +223,13 @@ container: {
   },
   profileButtons:{
     fontSize:15,
-    fontFamily: 'Avenir',
 
   },
   line:{
       fontSize:15,
-      fontFamily: 'Avenir',
 
   },
   groupTitle:{
-      fontFamily: 'Arial',
       fontSize: 20,
       marginLeft: 5,
       alignItems: 'center',

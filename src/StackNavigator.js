@@ -12,6 +12,7 @@ import MainTab from "./MainTab";
 import CardList from "./CardList";
 import Cardtwo from "./Cardtwo";
 import Notifications from "./Notifications";
+import Rest from "./Rest";
 
 const Stack = createStackNavigator();
 
@@ -19,13 +20,14 @@ const Stack = createStackNavigator();
 const HomeNavigator = () => {
   return(
   <Stack.Navigator >
-    <Stack.Screen  name="INline" component={MainTab} 
+    <Stack.Screen  name="MainTab" component={MainTab}
     options={() => 
   ({
-      headerShown:false,
+      headerShown:false
   })
   }/>
-    <Stack.Screen  name='CardList' component={CardList} 
+    <Stack.Screen name="Rest" component = {Rest}/>
+    <Stack.Screen  name="CardList" component={CardList} 
     options={() => 
   ({
     headerBackTitleVisible:false,
@@ -51,7 +53,8 @@ const HomeNavigator = () => {
 const ContactStackNavigator = () => {
     return (
       <Stack.Navigator screenOptions={{headerShown: true}}>
-        <Stack.Screen name="Notifications" component={Notifications} />
+        <Stack.Screen name="Notifications" component={Notifications} 
+        />
       </Stack.Navigator>
     );
   };

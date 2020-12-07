@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet,Image,TouchableOpacity, ImageBackground, ScrollView} from 'react-native';
+import { Text, View, StyleSheet,Image,TouchableOpacity, SafeAreaView, ImageBackground, ScrollView} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Akcii from './Akcii';
@@ -41,26 +41,24 @@ const typeMapState = {
 ],
 };
 
-const Cardtwo = ({navigation}) => {
+const Cardtwo = ({route}) => {
+  const itemData = route.params.itemData;
   const [state, setState] = React.useState(typeMapState);
-  const [statee, setStatee] = React.useState(Images);
   return (
     <Animatable.View style={{flex:1}}
     animation="slideInUp"
-    delay={100}
+    delay={200}
     >
     <View 
     style={[
       StyleSheet.absoluteFillObject,
       {flex:1, backgroundColor:'white',height:332}]}>
-      <ImageBackground source={require('./img/Image2.jpg')} style={styles.image}/>
+      <ImageBackground source={itemData.image} style={styles.image}/>
       </View>
       <View style={styles.bg}> 
       <ScrollView contentContainerStyle={{flexGrow:1}}> 
         <View>
-      <Animatable.View style={styles.categoryContainer}
-          animation="slideInUp"
-          delay={150}>          
+      <View style={styles.categoryContainer}>          
       {state.types.map((type, index) => (
                 <TouchableOpacity key={index}
                   style={styles.categoryBtn}
@@ -72,10 +70,8 @@ const Cardtwo = ({navigation}) => {
                   <Text style={styles.categoryBtnTxt}>{type.name}</Text>
                 </TouchableOpacity>
                         ))}
-        </Animatable.View>
-        <Animatable.View style={{height:130,marginTop:0,marginBottom:10}}
-            animation="slideInUp"
-            delay={300}  >
+        </View>
+        <View style={{height:130,marginTop:0,marginBottom:10}}>
                 <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
                  <Akcii 
                     imageUri=
@@ -96,22 +92,18 @@ const Cardtwo = ({navigation}) => {
                      imageUri=
                   {require('./img/k1.jpg')}/>
                 </ScrollView>
-                </Animatable.View>
-                <Animatable.View style={styles.section}
-                    animation="slideInUp"
-                    delay={500} > 
-                            <Text style={styles.titleSign}>Kowloon</Text>
+                </View>
+                <View style={styles.section}
+                > 
+                            <Text style={styles.titleSign}>{itemData.title}</Text>
                         <Text style={styles.sectionContent}>    Популярный бар среди, молодёжи, здесь вы увидите всех своих знакомых и найдёте себе приключения</Text> 
                             <Text style={styles.sectionContent}>  Теперь он известен как центр торговли, искусства и развлечений. 
                        У любителей шопинга пользуются популярностью.
                            </Text>
-               </Animatable.View>
+               </View>
 
                 <ScrollView horizontal>
-                <Animatable.View style={styles.gallery}
-                    animation="slideInUp"
-                    delay={700}
-                >
+                <View style={styles.gallery}>
                 <Image  source={require('./img/Image1.png')}
                 style={styles.listImage}/>
                 <Image  source={require('./img/Image1.png')}
@@ -120,7 +112,7 @@ const Cardtwo = ({navigation}) => {
                 style={styles.listImage}/>
                 <Image  source={require('./img/Image1.png')}
                 style={styles.listImage}/>
-                </Animatable.View>
+                </View>
                 </ScrollView>
                 </View>
           </ScrollView>
@@ -138,7 +130,7 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       width: '90%',
       alignSelf: 'center',
-      marginBottom:20,
+      marginBottom:30,
     },
           gallery:{
         flexDirection:'row',
@@ -161,7 +153,6 @@ const styles = StyleSheet.create({
       alignSelf:'center',
       marginBottom:10,
       fontWeight:'normal',
-      width:120,
       textShadowColor: 'rgba(0, 0, 0, 0.75)',
       textShadowOffset: {width:-1, height: 3},
       textShadowRadius: 10,
@@ -174,7 +165,7 @@ const styles = StyleSheet.create({
       color:'#000',
     },
     section: {
-      padding: 10,
+      padding: 12,
       borderBottomWidth: 1,
       borderBottomColor: '#f3f3f3',
     },
@@ -218,6 +209,6 @@ const styles = StyleSheet.create({
       backgroundColor:'white',
       transform:[{translateY:270}],
       borderRadius:32,
-      paddingTop:26,
+      paddingTop:42,
     }
   })

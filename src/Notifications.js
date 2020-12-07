@@ -1,70 +1,16 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Text, Image, ScrollView } from 'react-native';
-
-export default class Notifications extends Component {
+import {ListsMapState} from "./data";
+export default function Notifications() {
 
     //Mapping applied here:
-    state = {
-        restaurants: [
-            {
-                name: 'Kowloon Bar',
-                restaurantLogo: require('./img/Image1.png'),
-                message: 'You have succesfully Booked a table for 4. At 7:00 p.m. Reservetion is active till 7:30. Looking forward to having you!',
-                timeElsapsed: '20 min'
-            },
-            {
-                name: 'Okko Bar',
-                restaurantLogo: require('./img/Image2.jpg'),
-                message: 'You have succesfully Booked a table for 4. At 7:00 p.m. Reservetion is active till 7:30. Looking forward to having you!',
-                timeElsapsed: '33 min'
-            },
-            {
-                name: 'Red Velvet Lounge',
-                restaurantLogo: require('./img/Image3.jpg'),
-                message: "Havent't seen you in a while. We have a special promotion for you tonight! ",
-                timeElsapsed: '1h 2 min'
-            },
-            {
-                name: 'Olivier Restaurant',
-                restaurantLogo: require('./img/date3.jpg'),
-                message: 'You have succesfully Booked a table for 4. At 7:00 p.m., Friday. Reservetion is active till 7:30. Looking forward to having you!',
-                timeElsapsed: '2h 35 min'
-            },{
-                name: 'Kowloon Bar',
-                restaurantLogo: require('./img/Image1.png'),
-                message: 'You have succesfully Booked a table for 4. At 7:00 p.m. Reservetion is active till 7:30. Looking forward to having you!',
-                timeElsapsed: '1w 4 days'
-            },
-            {
-                name: 'Okko Bar',
-                restaurantLogo: require('./img/Image2.jpg'),
-                message: 'You have succesfully Booked a table for 4. At 7:00 p.m. Reservetion is active till 7:30. Looking forward to having you!',
-                timeElsapsed: '2 weeks'
-            },
-            {
-                name: 'Red Velvet Lounge',
-                restaurantLogo: require('./img/Image3.jpg'),
-                message: "Havent't seen you in a while. We have a special promotion for you tonight! ",
-                timeElsapsed: '3 weeks'
-            },
-            {
-                name: 'Olivier Restaurant',
-                restaurantLogo: require('./img/date3.jpg'),
-                message: 'You have succesfully Booked a table for 4. At 7:00 p.m., Friday. Reservetion is active till 7:30. Looking forward to having you!',
-                timeElsapsed: '1 mon.'
-            },
-            
-            
-        ]
-    }
-
-  render() {
+    const [state, setState] = React.useState(ListsMapState);
     return (
 
       <View style={styles.container}>
         <ScrollView contentContainerStyle={styles.scroll}>
-            {this.state.restaurants.map((restik) => (
-                <View style = {styles.notificationBlock}>
+            {state.restaurants.map((restik) => (
+                <View key={restik.id} style = {styles.notificationBlock}>
                     <View style={styles.avatarBlock}>
                         <View>
                             <Image 
@@ -104,13 +50,13 @@ export default class Notifications extends Component {
       </View>
     );
   }
-}
+
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 50,
     flex: 1,
     alignItems: 'center',
+    backgroundColor:'#fff'
     //justifyContent: 'center',
   },
   scroll:{
@@ -146,13 +92,12 @@ const styles = StyleSheet.create({
         textAlign: 'left',
         fontSize: 20,
         fontWeight: '500',
-        fontFamily: "Avenir",
         marginLeft: 15,
 
-  },timeStamp:{
+  },
+  timeStamp:{
         fontSize: 13,
         fontWeight: '400',
-        fontFamily: 'Avenir',
   },
   textTop:{
       height: '40%',
@@ -162,7 +107,6 @@ const styles = StyleSheet.create({
   message:{
     textAlign: 'center',
     fontSize: 15,
-    fontFamily: "Avenir",
     marginHorizontal: 0,
   },
   messageBlock:{
@@ -173,7 +117,6 @@ const styles = StyleSheet.create({
       marginTop: 15,
       marginBottom: 20,
       alignItems: 'center',
-      fontFamily: 'Avenir',
       fontSize: 20,
       
   }

@@ -11,98 +11,20 @@ import {  StyleSheet,
   Dimensions,
   Platform,
 } from 'react-native';
-  
+  import { SharedElement } from 'react-native-shared-element';
   import Swiper from 'react-native-swiper';
   import Ionicons from 'react-native-vector-icons/Ionicons';
   import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
   import Fontisto from 'react-native-vector-icons/Fontisto';
-  //import StackNavigator from './StackNavigator'
-
-  const windowWidth = Dimensions.get('window').width;
-  const windowHeight = Dimensions.get('window').height;
-
-
-
-
-  // Data:
-  // photos
-  const Images=[
-    { image: require("./img/Image1.png") },
-    { image: require("./img/Image2.jpg") },
-    { image: require("./img/Image3.jpg") },
-    { image: require("./img/date1.jpg") },
-    { image: require("./img/date2.jpg") },
-    { image: require("./img/date3.jpg") },
-  ];
-  // Тут данные  для Swiper лучшие за месяц
-  const ListsMapState ={
-  materials: [
-    {
-      id:1,
-      image:Images[0].image,
-      press:('CardList'),
-    },
-    {
-      id:2,
-      image:Images[1].image,
-      press:('CardList'),
-    },
-    {
-      id:3,
-      image:Images[2].image,
-      press:('CardList'),
-    },
-  ]
-}
-// Swiper Data for "Dates":
-const SvidanieMapState ={
-  svidanies: [
-    {
-      id:4,
-      image:Images[3].image,
-    },
-    {
-      id:5,
-      image:Images[4].image,
-    },
-    {
-      id:6,
-      image:Images[5].image,
-    },
-  ]
-}
-// Categories 
-const initialMapState = {
-  categories: [
-    { 
-      name: 'Перекусить', 
-      icon: <MaterialCommunityIcons style={{marginRight:5}} color = '#000' name="food-fork-drink" size={18} />,
-    },
-    {
-      name: 'Рестораны',
-      icon: <Ionicons name="ios-restaurant" style={{marginRight:5}} color = '#000' size={18} />,
-    },
-    {
-      name: 'Свидания',
-      icon: <Ionicons name="md-restaurant" style={{marginRight:5}}  color = '#000' size={18} />,
-    },
-    {
-      name: 'Бургерные',
-      icon: <MaterialCommunityIcons name="food" style={{marginRight:5}} color = '#000' size={18} />,
-    },
-    {
-      name: 'Hotel',
-      icon: <Fontisto name="hotel" style={{marginRight:5}} color = '#000' size={15} />,
-    },
-],
-};
-
+  import Cardtwo from './Cardtwo';
+  import {ListsMapState} from './data';
 
 
 export default function App({navigation}) {   
-  const [state, setState] = React.useState(initialMapState);
-  const [statee, setStatee] = React.useState(ListsMapState);
-  const [stat, setStat] = React.useState(SvidanieMapState);
+  //Метод setState() следит за изменением состояния (state) компонента. state — это объект. 
+  // Когда состояние меняется, компонент рендерится повторно.
+
+  const [state, setState] = React.useState(ListsMapState);
   return (
     <View style={styles.container}> 
     <ScrollView contentContainerStyle={styles.scroll}> 
@@ -139,7 +61,7 @@ export default function App({navigation}) {
       >
  
         {state.categories.map((category,index) => (
-          <TouchableOpacity key={index} style={styles.chipsItem}>
+          <TouchableOpacity key={index} style={styles.chipsItem} onPress ={() => navigation.navigate('Rest')}>
             {category.icon}
             <Text style={{color:'black'}}>{category.name}</Text>
           </TouchableOpacity>
@@ -147,9 +69,9 @@ export default function App({navigation}) {
 
       </ScrollView>
       <View style={styles.sliderContainer}>
-    <Swiper autoplay height={200} activeDotColor="hide" autoplayTimeout={5} showsPagination={false} > 
-         {statee.materials.map((material) => (
-        <TouchableOpacity key = {material.id} onPress={() => navigation.navigate('CardList')}style={{marginRight:1}}>
+    <Swiper autoplay height={200} activeDotColor="hide" autoplayTimeout={3.5} showsPagination={false} > 
+         {state.materials.map((material, id) => (
+        <TouchableOpacity key = {id} onPress={() => navigation.navigate('CardList')}>
            <Image 
             source={material.image}
             resizeMode="cover"
@@ -170,15 +92,17 @@ export default function App({navigation}) {
     showsPagination={true} 
     activeDotColor={'gray'} 
     dotColor={'white'}> 
-        {stat.svidanies.map((svidanie) => (
-        <TouchableOpacity key = {svidanie.id} onPress={() =>  alert('test')}>
+        {state.svidanies.map((svidanie,id) => (
+        <TouchableOpacity key = {id} onPress={() =>  navigation.navigate('Cardtwo')}>
+           
            <Image 
             source={svidanie.image}
             resizeMode="cover"
             style={styles.sliderImage}
             />
-        </TouchableOpacity>
-      ))}
+          
+        </TouchableOpacity>  
+     ))}
      </Swiper>
      </View>
      <View style={styles.month}>
@@ -192,8 +116,8 @@ export default function App({navigation}) {
     showsPagination={true} 
     activeDotColor={'gray'} 
     dotColor={'white'} > 
-        {stat.svidanies.map((svidanie) => (
-        <TouchableOpacity key = {svidanie.id} onPress={() =>  alert('test')}>
+        {state.svidanies.map((svidanie, id) => (
+        <TouchableOpacity key = {id} onPress={() =>  alert('test')}>
            <Image 
             source={svidanie.image}
             resizeMode="cover"
@@ -214,8 +138,8 @@ export default function App({navigation}) {
     showsPagination={true} 
     activeDotColor={'gray'} 
     dotColor={'white'} > 
-        {stat.svidanies.map((svidanie) => (
-        <TouchableOpacity key = {svidanie.id} onPress={() =>  alert('test')}>
+        {state.svidanies.map((svidanie, id) => (
+        <TouchableOpacity key = {id} onPress={() =>  alert('test')}>
            <Image 
             source={svidanie.image}
             resizeMode="cover"
@@ -246,7 +170,7 @@ const styles = StyleSheet.create({
   },
   searchBox: {
     position:'absolute', 
-    marginTop: 10,
+    marginTop:Platform.OS === "android" ? 45:0,
     color:'white',
     flexDirection:"row",
     backgroundColor: 'white',
@@ -262,7 +186,7 @@ const styles = StyleSheet.create({
   chipsScrollView: {
     position:'absolute',
     top:Platform.OS === 'ios' ? 90 : 80, 
-    marginTop: 5,
+    marginTop:18,
     paddingHorizontal:10
   },
   sliderImage: {

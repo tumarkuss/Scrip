@@ -5,17 +5,21 @@ import {
     StyleSheet,
     View,
     ImageBackground,
+    Animated,
     Dimensions,
     StatusBar,
     Image,
     TouchableOpacity
   } from "react-native";
 import Swiper from 'react-native-swiper';
-import HeaderImageScrollView, {TriggeringView} from 'react-native-image-header-scroll-view';
+import HeaderImageScrollView, { TriggeringView } from 'react-native-image-header-scroll-view';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Fontisto from 'react-native-vector-icons/Fontisto';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Akcii from './Akcii';
+import { useFonts } from 'expo-font';
 
 // Список для информации о заведении
 const typeMapState = {
@@ -71,8 +75,9 @@ const MAX_HEIGHT = 326;
                         </ImageBackground>
                         
                         )}>
-                <TriggeringView style={styles.sectiontlt}>
-                    <View style={{alignSelf:'center'}}>
+                          <View style={styles.header}>
+              <TriggeringView style={styles.sectiontlt}>
+                    <View style={{alignItems:'center'}}>
                         <Text style={styles.titleSign}>Kowloon</Text>
                     </View>
                 </TriggeringView>
@@ -115,15 +120,15 @@ const MAX_HEIGHT = 326;
                 </View>
                 
                 <View style={styles.section}> 
-                     <Text style={styles.sectionContent}>    Популярный бар среди, молодёжи, здесь вы увидите всех своих знакомых и найдёте себе приключения</Text> 
-                          <Text style={styles.sectionContent}>  Теперь он известен как центр торговли, искусства и развлечений. 
+                        <Text style={styles.sectionContent}>    Популярный бар среди, молодёжи, здесь вы увидите всех своих знакомых и найдёте себе приключения</Text> 
+                            <Text style={styles.sectionContent}>  Теперь он известен как центр торговли, искусства и развлечений. 
                        У любителей шопинга пользуются популярностью.
-                        </Text>
-                </View>
+                           </Text>
+               </View>
                 <View>
-                <Text style={{position:'absolute', left:0, top:0,marginBottom:10,marginLeft:10,fontSize:16,color:'gray'}}>Фотографии</Text>
+                <Text style={{position:'absolute', left:0, top:0,marginBottom:10,marginLeft:10,fontSize:16,color:'gray'}}>Фотографии </Text>
                 </View>
-                <View style={styles.gallery}>  
+                <View style={styles.gallery}>
                 <Image  source={require('./img/Image1.png')}
                 style={styles.listImage}/>
                 <Image  source={require('./img/Image1.png')}
@@ -147,6 +152,7 @@ const MAX_HEIGHT = 326;
 
                 </TouchableOpacity>
                 </View>
+                </View>
             </HeaderImageScrollView>
         </View>
     );
@@ -158,6 +164,9 @@ const MAX_HEIGHT = 326;
       container: {
           flex:1,
           
+      },
+      header:{
+        borderRadius:32,
       },
       categoryContainer: {
         flexDirection: 'row',
@@ -180,7 +189,7 @@ const MAX_HEIGHT = 326;
         alignSelf:'center',
         fontFamily:'sans-serif',
         fontWeight:'normal',
-        width:'100%',
+        width:120,
         textShadowColor: 'rgba(0, 0, 0, 0.75)',
         textShadowOffset: {width:-1, height: 3},
         textShadowRadius: 10,
