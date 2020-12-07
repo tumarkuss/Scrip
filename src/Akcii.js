@@ -10,7 +10,7 @@ class Akcii extends Component {
     render() {
         return (
           <View style={{flex:1}}>
-          <View style={{height:150, width:120}}>
+          <View style={{height:130, width:93,padding:2}}>
           <Image 
             source={this.props.imageUri}
             style={styles.sliderImage}
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     sliderImage: {
       height:'100%',
       resizeMode:'cover',
-      width:'99%',
+      width:'100%',
       borderRadius: 12,
     }
 });
