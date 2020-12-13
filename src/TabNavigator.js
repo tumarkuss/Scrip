@@ -1,9 +1,7 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { HomeNavigator, ContactStackNavigator,Profile } from "./StackNavigator";
+import { HomeNavigator, ProfileNavigator, NotificationsNavigator, FavoritesNavigator } from "./StackNavigator";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import MainTab from "./MainTab";
-import Notifications from "./Notifications";
 
 
 const Tab = createBottomTabNavigator();
@@ -30,7 +28,7 @@ const BottomTabNavigator = () => {
       />
       <Tab.Screen
         name="Favorites"
-        component={HomeNavigator}
+        component={FavoritesNavigator}
         options={{
           tabBarLabel: 'Favorites',
           tabBarIcon: ({ color, size }) => (
@@ -39,8 +37,8 @@ const BottomTabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="Notifications"
-        component={ContactStackNavigator}
+        name="NotificationsNavigator"
+        component={NotificationsNavigator}
         options={{
           tabBarLabel: 'Notifications',
           tabBarIcon: ({ color, size }) => (
@@ -51,7 +49,7 @@ const BottomTabNavigator = () => {
       
       <Tab.Screen
         name="Profile"
-        component={Profile}
+        component={ProfileNavigator}
         options={{
           headerShown:true,
           tabBarLabel: 'Profile',
