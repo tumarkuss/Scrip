@@ -14,6 +14,7 @@ import Cardtwo from "./Cardtwo";
 import Notifications from "./Notifications";
 import Rest from "./Rest";
 import ProfilePage from "./ProfilePage";
+import Favorites from "./Favorites";
 
 const Stack = createStackNavigator();
 
@@ -24,7 +25,7 @@ const HomeNavigator = () => {
     <Stack.Screen  name="MainTab" component={MainTab}
     options={() => 
   ({
-      headerShown:false
+      headerShown:true
   })
   }/>
     <Stack.Screen name="Rest" component = {Rest}/>
@@ -51,7 +52,16 @@ const HomeNavigator = () => {
 );
 };
 
-const ContactStackNavigator = () => {
+const FavoritesNavigator = () => {
+  return (
+    <Stack.Navigator screenOptions={{headerShown: true}}>
+      <Stack.Screen name="Favorites" component={Favorites} 
+      />
+    </Stack.Navigator>
+  );
+};
+
+const NotificationsNavigator = () => {
     return (
       <Stack.Navigator screenOptions={{headerShown: true}}>
         <Stack.Screen name="Notifications" component={Notifications} 
@@ -60,7 +70,7 @@ const ContactStackNavigator = () => {
     );
   };
 
-  const Profile = () => {
+  const ProfileNavigator = () => {
     return (
       <Stack.Navigator screenOptions={{headerShown: true}}>
         <Stack.Screen name="Profile" component={ProfilePage} 
@@ -68,4 +78,4 @@ const ContactStackNavigator = () => {
       </Stack.Navigator>
     );
   };
-  export { HomeNavigator, ContactStackNavigator,Profile };
+  export { HomeNavigator, FavoritesNavigator, NotificationsNavigator, ProfileNavigator };
