@@ -13,11 +13,9 @@ import {
   } from "react-native";
 import Swiper from 'react-native-swiper';
 import HeaderImageScrollView, { TriggeringView } from 'react-native-image-header-scroll-view';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Fontisto from 'react-native-vector-icons/Fontisto';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 import Akcii from './Akcii';
 import { useFonts } from 'expo-font';
 

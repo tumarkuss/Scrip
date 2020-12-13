@@ -1,20 +1,28 @@
-import React from 'react';
-import { Text, View, StyleSheet,Image,TouchableOpacity, SafeAreaView, ImageBackground, ScrollView} from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import React, {useRef} from 'react';
+import { Text, View, StyleSheet,Image,TouchableOpacity, Animated, ImageBackground,ScrollView} from 'react-native';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import Akcii from './Akcii';
 import * as Animatable from 'react-native-animatable';
 
-const DURATION = 400;
 
-const Images=[
+
+const Images={
+  img:[
   { image: require("./img/Image1.png") },
   { image: require("./img/Image2.jpg") },
   { image: require("./img/Image3.jpg") },
   { image: require("./img/date1.jpg") },
   { image: require("./img/date2.jpg") },
   { image: require("./img/date3.jpg") },
-];
+  ],
+  akc:[
+    { image: require("./img/k1.jpg") },
+    { image: require("./img/k2.jpg") },
+    { image: require("./img/k1.jpg") },
+    ]
+};
+
 
 const typeMapState = {
   types: [
@@ -44,7 +52,9 @@ const typeMapState = {
 const Cardtwo = ({route}) => {
   const itemData = route.params.itemData;
   const [state, setState] = React.useState(typeMapState);
-  return (
+  const [statee,setStatee] = React.useState(Images);
+    return (
+      <ScrollView horizontal={false}>
     <Animatable.View style={{flex:1}}
     animation="slideInUp"
     delay={200}
@@ -52,12 +62,11 @@ const Cardtwo = ({route}) => {
     <View 
     style={[
       StyleSheet.absoluteFillObject,
-      {flex:1, backgroundColor:'white',height:332}]}>
+      {flex:1, backgroundColor:'white',height:322}]}>
       <ImageBackground source={itemData.image} style={styles.image}/>
       </View>
       <View style={styles.bg}> 
-      <ScrollView contentContainerStyle={{flexGrow:1}}> 
-        <View>
+      <ScrollView contentContainerStyle={{flexGrow:1,paddingBottom:350}}> 
       <View style={styles.categoryContainer}>          
       {state.types.map((type, index) => (
                 <TouchableOpacity key={index}
@@ -73,24 +82,11 @@ const Cardtwo = ({route}) => {
         </View>
         <View style={{height:130,marginTop:0,marginBottom:10}}>
                 <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
-                 <Akcii 
+                {statee.akc.map(( ak ,index) => (
+                 <Akcii key={index}
                     imageUri=
-                    {require('./img/k1.jpg')}/>
-                 <Akcii 
-                     imageUri=
-                  {require('./img/k2.jpg')}/>
-                <Akcii 
-                    imageUri=
-                    {require('./img/k1.jpg')}/>
-                <Akcii 
-                     imageUri=
-                  {require('./img/k1.jpg')}/>
-                <Akcii 
-                    imageUri=
-                    {require('./img/k2.jpg')}/>
-                 <Akcii 
-                     imageUri=
-                  {require('./img/k1.jpg')}/>
+                  {ak.image}/>
+                ))}
                 </ScrollView>
                 </View>
                 <View style={styles.section}
@@ -101,23 +97,57 @@ const Cardtwo = ({route}) => {
                        У любителей шопинга пользуются популярностью.
                            </Text>
                </View>
+               <View>
 
-                <ScrollView horizontal>
-                <View style={styles.gallery}>
-                <Image  source={require('./img/Image1.png')}
-                style={styles.listImage}/>
-                <Image  source={require('./img/Image1.png')}
-                style={styles.listImage}/>
-                <Image  source={require('./img/Image1.png')}
-                style={styles.listImage}/>
-                <Image  source={require('./img/Image1.png')}
-                style={styles.listImage}/>
+                  <Text style={{position:'absolute', left:0, top:0,marginBottom:10,marginLeft:10,fontSize:16,color:'gray'}}>Фотографии</Text>
+                  </View>
+                    <ScrollView horizontal>
+                    <View style={styles.gallery}>
+                    {statee.img.map(( ig ,index) => (
+                    <TouchableOpacity  key={index}>
+                    <Image  source={ig.image} key={index}
+                    style={styles.listImage}/>
+                    </TouchableOpacity>
+                    ))}
+                    </View>
+                    </ScrollView>
+                <View style={styles.sec}>
+                  <Text style={styles.sectionContent}>
+                  ​Средний чек 3000 тнг.
+                  </Text>
+                  <Text style={styles.sectionContent}>
+                  ​Восточная кухня​
+                  </Text>
+                  <Text style={styles.sectionContent}>​
+                  Турецкая кухня​
+                  </Text>
+                  <Text style={styles.sectionContent}>
+                  ​Спортивные трансляции
+                  </Text>
+                  <Text style={styles.sectionContent}>
+                  ​До 40 мест
+                  </Text>
+                </View>
+                <View style={styles.button}>
+                <TouchableOpacity 
+                onPress ={() => {}}
+                  style={[styles.order, {
+                    borderColor: '#000',
+                    borderWidth: 1
+                  }]}
+                >
+                  <Text style={[styles.textSign, {
+                    color: '#000'
+                  }]}>Order Now</Text>
+
+                </TouchableOpacity>
                 </View>
                 </ScrollView>
                 </View>
-          </ScrollView>
-      </View>
+                
+    
     </Animatable.View>
+    </ScrollView>
   );
 }
 
@@ -130,21 +160,21 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       width: '90%',
       alignSelf: 'center',
-      marginBottom:30,
+      marginBottom:20,
     },
-          gallery:{
+      gallery:{
+        marginTop:20,
         flexDirection:'row',
-        justifyContent:'space-evenly',
-        justifyContent:'space-between',
         borderBottomWidth:1,
         borderBottomColor:'#f3f3f3',
-        marginTop:20,
       },
     listImage:{
       height: 105,
-      width: 95,
+      width: 100,
+      borderRadius:20,
       position: 'relative', // because it's parent
       top: 7,
+      marginRight:5,
       marginBottom:20,
       left: 5,
     },
@@ -163,12 +193,26 @@ const styles = StyleSheet.create({
       fontSize: 16,
       textAlign:'justify',
       color:'#000',
+      alignSelf:'center',
     },
     section: {
       padding: 12,
       borderBottomWidth: 1,
       borderBottomColor: '#f3f3f3',
     },
+    sec: {
+      padding: 12,
+      flexDirection:'column',
+      borderBottomWidth: 1,
+      borderBottomColor: '#f3f3f3',
+    },
+    order: {
+      width: '80%',
+      padding:5,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: 5
+  },
     categoryIcon: {
       alignItems: 'center',
       justifyContent:'center',
@@ -193,6 +237,14 @@ const styles = StyleSheet.create({
       top:220,
       padding:20,
     },
+    button: {
+      marginTop:10,
+      alignItems: 'center'
+    },
+    textSign: {
+      fontSize: 20,
+      fontWeight: 'bold'
+  },
     image:{
         width:'100%',
         height:'98%',
@@ -205,10 +257,10 @@ const styles = StyleSheet.create({
     bg: {
       position:'relative',
       width:'100%',
-      height:'100%',
+      height:'80%',
       backgroundColor:'white',
-      transform:[{translateY:270}],
+      transform:[{translateY:260}],
       borderRadius:32,
-      paddingTop:42,
+      paddingTop:22,
     }
   })

@@ -1,19 +1,8 @@
 
 import React from 'react';
-import {  StyleSheet,
-  Text,
-  TextInput,
-  View,
-  ScrollView,
-  Animated,
-  Image,
-  TouchableOpacity,
-  Dimensions,
-  Platform,
-} from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Fontisto from 'react-native-vector-icons/Fontisto';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import Fontisto from '@expo/vector-icons/Fontisto';
   // Списки с данными
   // тут фотки
   
@@ -30,48 +19,48 @@ const Images=[
 ];
 export const DATA = [ 
   {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+    id: '1',
     title: 'Kowloon',
     image: Images[0].image,
     ratings:4,
     reviews:178,
   },
   {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+    id: '2',
     title: 'New Way',
     image: Images[1].image,
     ratings:4,
     reviews:178,
   },
   {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
+    id: '3',
     title: 'GASPAda',
     image: Images[2].image,
     ratings:4,
     reviews:178,
   },
   {
-    id: '58692a0f-3da1-471f-bd96-145571e29d72',
+    id: '4',
     title: 'GASPAda',
     image: Images[4].image,
     ratings:4,
     reviews:178,
   },
   {
-    id: '58294a0f-3da1-471f-bd96-145571e29d72',
+    id: '5',
     title: 'GASPAda',
     image: Images[5].image,
     ratings:4,
   },
   {
-    id: '58694a0f-21a1-471f-bd96-145571e29d72',
+    id: '6',
     title: 'GASPAda',
     image: Images[3].image,
     ratings:4,
     reviews:178,
   },
   {
-    id: '586ss94a0f-3da1-471f-bd96-145571e29d72',
+    id: '7',
     title: 'GASPAda',
     image: Images[2].image,
     ratings:4,
@@ -82,19 +71,19 @@ export const DATA = [
 export const ListsMapState ={
 materials: [
   {
-    id:1,
+    id:20,
     image:Images[0].image,
     ratings:4,
     name:('CardList'),
   },
   {
-    id:2,
+    id:22,
     image:Images[1].image,
     ratings:4,
     name:('CardTwo'),
   },
   {
-    id:3,
+    id:23,
     image:Images[2].image,
     ratings:4,
     name:('CardList'),
@@ -102,17 +91,17 @@ materials: [
 ],
 svidanies: [
   {
-    id:4,
+    id:24,
     image:Images[1].image,
     ratings:4,
   },
   {
-    id:5,
+    id:25,
     image:Images[4].image,
     ratings:4,
   },
   {
-    id:6,
+    id:26,
     image:Images[5].image,
     ratings:4,
   },

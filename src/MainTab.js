@@ -10,17 +10,14 @@ import {  StyleSheet,
   TouchableOpacity,
   Dimensions,
   Platform,
+  SafeAreaView,
 } from 'react-native';
-  import { SharedElement } from 'react-native-shared-element';
   import Swiper from 'react-native-swiper';
-  import Ionicons from 'react-native-vector-icons/Ionicons';
-  import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-  import Fontisto from 'react-native-vector-icons/Fontisto';
-  import Cardtwo from './Cardtwo';
+  import Ionicons from '@expo/vector-icons/Ionicons';
   import {ListsMapState} from './data';
 
 
-export default function App({navigation}) {   
+export default function MainTab({navigation}) {   
   //Метод setState() следит за изменением состояния (state) компонента. state — это объект. 
   // Когда состояние меняется, компонент рендерится повторно.
 
@@ -70,10 +67,10 @@ export default function App({navigation}) {
       </ScrollView>
       <View style={styles.sliderContainer}>
     <Swiper autoplay height={200} activeDotColor="hide" autoplayTimeout={3.5} showsPagination={false} > 
-         {state.materials.map((material, id) => (
-        <TouchableOpacity key = {id} onPress={() => navigation.navigate('CardList')}>
+         {state.materials.map((material) => (
+        <TouchableOpacity key = {material.id} onPress={() => navigation.navigate('CardList')}>
            <Image 
-            source={material.image}
+            source={(material.image)}
             resizeMode="cover"
             style={styles.sliderImage}
             />
@@ -92,8 +89,8 @@ export default function App({navigation}) {
     showsPagination={true} 
     activeDotColor={'gray'} 
     dotColor={'white'}> 
-        {state.svidanies.map((svidanie,id) => (
-        <TouchableOpacity key = {id} onPress={() =>  navigation.navigate('Cardtwo')}>
+        {state.svidanies.map((svidanie) => (
+        <TouchableOpacity key = {svidanie.id} onPress={() =>  navigation.navigate('CardList')}>
            
            <Image 
             source={svidanie.image}
@@ -116,8 +113,8 @@ export default function App({navigation}) {
     showsPagination={true} 
     activeDotColor={'gray'} 
     dotColor={'white'} > 
-        {state.svidanies.map((svidanie, id) => (
-        <TouchableOpacity key = {id} onPress={() =>  alert('test')}>
+        {state.svidanies.map((svidanie) => (
+        <TouchableOpacity key = {svidanie.id} onPress={() =>  alert('test')}>
            <Image 
             source={svidanie.image}
             resizeMode="cover"
@@ -138,8 +135,8 @@ export default function App({navigation}) {
     showsPagination={true} 
     activeDotColor={'gray'} 
     dotColor={'white'} > 
-        {state.svidanies.map((svidanie, id) => (
-        <TouchableOpacity key = {id} onPress={() =>  alert('test')}>
+        {state.svidanies.map((svidanie) => (
+        <TouchableOpacity key = {svidanie.id} onPress={() =>  alert('test')}>
            <Image 
             source={svidanie.image}
             resizeMode="cover"

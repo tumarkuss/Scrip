@@ -1,9 +1,8 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { HomeNavigator, ContactStackNavigator } from "./StackNavigator";
+import { HomeNavigator, ContactStackNavigator,Profile } from "./StackNavigator";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import MainTab from "./MainTab";
-import Profile from "./ProfilePage";
 import Notifications from "./Notifications";
 
 

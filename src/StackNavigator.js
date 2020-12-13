@@ -13,6 +13,7 @@ import CardList from "./CardList";
 import Cardtwo from "./Cardtwo";
 import Notifications from "./Notifications";
 import Rest from "./Rest";
+import ProfilePage from "./ProfilePage";
 
 const Stack = createStackNavigator();
 
@@ -58,4 +59,13 @@ const ContactStackNavigator = () => {
       </Stack.Navigator>
     );
   };
-  export { HomeNavigator, ContactStackNavigator };
+
+  const Profile = () => {
+    return (
+      <Stack.Navigator screenOptions={{headerShown: true}}>
+        <Stack.Screen name="Profile" component={ProfilePage} 
+        />
+      </Stack.Navigator>
+    );
+  };
+  export { HomeNavigator, ContactStackNavigator,Profile };

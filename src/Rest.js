@@ -1,8 +1,7 @@
 import React from 'react';
-import { SafeAreaView,Image, View, FlatList, StyleSheet, Text, StatusBar } from 'react-native';
-import {DATA} from './data'
+import { SafeAreaView, FlatList, StyleSheet} from 'react-native';
+import {DATA} from './data';
 import Card from './ttest';
-
 
 
 const Rest = ({navigation}) => {
@@ -18,6 +17,7 @@ const Rest = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
+      showsHorizontalScrollIndicator={false}
         data={DATA}
         renderItem={renderItem}
         keyExtractor={item => item.id}
