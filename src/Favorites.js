@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Text, Image, ScrollView, TouchableHighlight } from 'react-native';
-import SparkButton from 'react-native-sparkbutton';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { Ionicons } from '@expo/vector-icons';
 
 
 export default class Favorites extends Component {
@@ -136,11 +134,7 @@ export default class Favorites extends Component {
             <View style={styles.lastMessage}>
                 <Text>No more messages to display.</Text>
             </View>
-
             </ScrollView>
-
-
-        
       </View>
     );
   }
@@ -187,13 +181,11 @@ const styles = StyleSheet.create({
         textAlign: 'left',
         fontSize: 20,
         fontWeight: '500',
-        fontFamily: "Avenir",
         marginLeft: 15,
 
   },timeStamp:{
         fontSize: 13,
         fontWeight: '400',
-        fontFamily: 'Avenir',
   },
   textTop:{
       height: '40%',
@@ -203,7 +195,6 @@ const styles = StyleSheet.create({
   message:{
     textAlign: 'center',
     fontSize: 15,
-    fontFamily: "Avenir",
     marginHorizontal: 0,
   },
   messageBlock:{
@@ -214,7 +205,6 @@ const styles = StyleSheet.create({
       marginTop: 15,
       marginBottom: 20,
       alignItems: 'center',
-      fontFamily: 'Avenir',
       fontSize: 20,
       
   }

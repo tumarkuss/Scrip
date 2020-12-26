@@ -95,7 +95,7 @@ export default class Notifications extends Component {
                             </Text>
                         </View>
                         <View style={styles.messageBlock}>
-                            <Text style={styles.message}adjustsFontSizeToFit={true}numberOfLines = { 1 } ellipsizeMode = 'middle'>
+                            <Text style={styles.message}adjustsFontSizeToFit={false}numberOfLines = { 1 } ellipsizeMode = 'middle'>
                                 {restik.message}
                             </Text>
                         </View>
@@ -160,7 +160,8 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         marginLeft: 3,
 
-  },timeStamp:{
+  },
+  timeStamp:{
         fontSize: 13,
         fontWeight: '400',
         //backgroundColor: 'blue',

@@ -8,6 +8,7 @@ import {
   View,
 } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
+import Reservation from "./Reservation";
 import MainTab from "./MainTab";
 import CardList from "./CardList";
 import Cardtwo from "./Cardtwo";
@@ -22,10 +23,11 @@ const Stack = createStackNavigator();
 const HomeNavigator = () => {
   return(
   <Stack.Navigator >
-    <Stack.Screen  name="MainTab" component={MainTab}
+    <Stack.Screen  name="INline" component={MainTab}
     options={() => 
   ({
-      headerShown:true
+      headerShown:true,
+      headerTitleStyle: { alignSelf: 'center' },
   })
   }/>
     <Stack.Screen name="Rest" component = {Rest}/>
@@ -48,6 +50,7 @@ const HomeNavigator = () => {
         headerTintColor:'#fff',
       })
       }/>
+      <Stack.Screen name="Reservation" component={Reservation}/>
   </Stack.Navigator>
 );
 };
@@ -73,8 +76,7 @@ const NotificationsNavigator = () => {
   const ProfileNavigator = () => {
     return (
       <Stack.Navigator screenOptions={{headerShown: true}}>
-        <Stack.Screen name="Profile" component={ProfilePage} 
-        />
+        <Stack.Screen name="Profile" component={ProfilePage} />
       </Stack.Navigator>
     );
   };

@@ -1,11 +1,14 @@
-import React, {useRef} from 'react';
-import { Text, View, StyleSheet,Image,TouchableOpacity, Animated, ImageBackground,ScrollView} from 'react-native';
-import Ionicons from '@expo/vector-icons/Ionicons';
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-import Akcii from './Akcii';
+import React, {useState} from 'react';
+import { Text, View, StyleSheet,TouchableOpacity, ImageBackground,ScrollView,StatusBar,Modal,Dimensions,Image} from 'react-native';
 import * as Animatable from 'react-native-animatable';
+import Modalcard from './Modalcard';
+import { VictoryBar, VictoryChart,VictoryTheme } from "victory-native";
+import { Container, Header, Tab, Tabs, TabHeading } from 'native-base';
+import ImageGallery from './ImageGallery';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import Swiper from 'react-native-swiper';
 
-
+const WINDOW_WIDTH = Dimensions.get('window').width;
 
 const Images={
   img:[
@@ -17,48 +20,56 @@ const Images={
   { image: require("./img/date3.jpg") },
   ],
   akc:[
-    { image: require("./img/k1.jpg") },
-    { image: require("./img/k2.jpg") },
-    { image: require("./img/k1.jpg") },
-    ]
+  { image: require("./img/k1.jpg") },
+  { image: require("./img/k2.jpg") },
+  { image: require("./img/k1.jpg") },
+  ]
 };
 
 
-const typeMapState = {
-  types: [
-    { 
-      name: 'Меню', 
-      icon: <Ionicons name="ios-restaurant" size={26} color="#000" />,
-    },
-    {
-      name: 'График',
-      icon:  <Ionicons name="ios-time" size={26} color="#000" />,
-    },
-    {
-      name: 'Плейлист',
-      icon: <MaterialCommunityIcons name="music" size={26} color="#000" />,
-    },
-    {
-      name: 'Бар',
-      icon: <MaterialCommunityIcons name="glass-cocktail" size={26} color="#000" />,
-    },
-    {
-      name: 'Процентаж',
-      icon: <MaterialCommunityIcons name="star-outline" size={26} color="#000"  />,
-    },
-],
-};
 
-const Cardtwo = ({route}) => {
+const Cardtwo = ({route,navigation}) => {
+
+    const Graphic_Sreda = () => { 
+          return(
+            <View>
+              <View style={{alignSelf:'center'}}>
+                  <VictoryChart width={310} height={300} theme={VictoryTheme.material} domainPadding={{x: [10, 0]}} domain={{y:[0,100]}}>
+                      <VictoryBar style={{data:{fill:'#c43a31'}}}  data={itemData.dataSR} x="time" y="percent"/>
+                  </VictoryChart>
+                </View> 
+            </View>
+  )};
+  const Graphic_Vtornik = () => {
+    return(
+    <View>
+    <View style={{alignSelf:'center'}}>
+         <VictoryChart width={310} height={300} theme={VictoryTheme.material} domainPadding={{x: [10, 0]}} domain={{y:[0,100]}}>
+          <VictoryBar style={{data:{fill:'#c43a31'}}}  data={itemData.dataVT} x="time" y="percent"/>
+          </VictoryChart>
+    </View>
+</View>
+    )};
+  const Graphic_ponedelnik = () => {
+      return(
+        <View>
+          <View style={{alignSelf:'center'}}>
+              <VictoryChart width={310} height={300} theme={VictoryTheme.material} domainPadding={{x: [10, 0]}} domain={{y:[0,100]}}>
+                  <VictoryBar style={{data:{fill:'#c43a31'}}}  data={itemData.dataPN} x="time" y="percent"/>
+              </VictoryChart>
+            </View> 
+        </View>
+)};
+
   const itemData = route.params.itemData;
-  const [state, setState] = React.useState(typeMapState);
   const [statee,setStatee] = React.useState(Images);
+  const [modal,setModal] = useState(false);
+
     return (
-      <ScrollView horizontal={false}>
+      <ScrollView horizontal={false} showsVerticalScrollIndicator={false} >
     <Animatable.View style={{flex:1}}
     animation="slideInUp"
-    delay={200}
-    >
+    delay={200}>
     <View 
     style={[
       StyleSheet.absoluteFillObject,
@@ -66,86 +77,120 @@ const Cardtwo = ({route}) => {
       <ImageBackground source={itemData.image} style={styles.image}/>
       </View>
       <View style={styles.bg}> 
-      <ScrollView contentContainerStyle={{flexGrow:1,paddingBottom:350}}> 
-      <View style={styles.categoryContainer}>          
-      {state.types.map((type, index) => (
-                <TouchableOpacity key={index}
-                  style={styles.categoryBtn}
-                  onPress={() =>
-                    alert('test1')}>
-                  <View style={styles.categoryIcon}>
-                    {type.icon} 
-                  </View>
-                  <Text style={styles.categoryBtnTxt}>{type.name}</Text>
-                </TouchableOpacity>
-                        ))}
-        </View>
-        <View style={{height:130,marginTop:0,marginBottom:10}}>
-                <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
-                {statee.akc.map(( ak ,index) => (
-                 <Akcii key={index}
-                    imageUri=
-                  {ak.image}/>
-                ))}
-                </ScrollView>
-                </View>
-                <View style={styles.section}
-                > 
+      <ScrollView contentContainerStyle={{flexGrow:1,paddingBottom:300}} > 
+       <Modalcard/> 
+              <View style={styles.section}> 
                             <Text style={styles.titleSign}>{itemData.title}</Text>
-                        <Text style={styles.sectionContent}>    Популярный бар среди, молодёжи, здесь вы увидите всех своих знакомых и найдёте себе приключения</Text> 
-                            <Text style={styles.sectionContent}>  Теперь он известен как центр торговли, искусства и развлечений. 
-                       У любителей шопинга пользуются популярностью.
-                           </Text>
+                            <Text style={styles.sectionContent}>{itemData.opisanie_odin}</Text> 
+                            <Text style={styles.sectionContent}>  {itemData.opisanie_dva}
+                            </Text>
                </View>
-               <View>
-
-                  <Text style={{position:'absolute', left:0, top:0,marginBottom:10,marginLeft:10,fontSize:16,color:'gray'}}>Фотографии</Text>
-                  </View>
-                    <ScrollView horizontal>
-                    <View style={styles.gallery}>
-                    {statee.img.map(( ig ,index) => (
-                    <TouchableOpacity  key={index}>
-                    <Image  source={ig.image} key={index}
-                    style={styles.listImage}/>
-                    </TouchableOpacity>
-                    ))}
+                    <View>
+                        <Text style={styles.photo}>Фотографии</Text>
                     </View>
-                    </ScrollView>
+                          <Modal
+                          transparent={true}
+                          animationTyp="slide"
+                          visible={modal}
+                          onRequestClose={()=> {setModal(false);}}>
+                            <View style={styles.centeredView}>
+                              <View style={styles.modalView}>
+                               <Swiper
+                                autoplay={false} 
+                                showsPagination={false}
+                                showsButtons={true}
+                                activeDotColor={'gray'} 
+                                dotColor={'white'}>
+                                {statee.img.map((image,index)=>( 
+                                  <Image source={image.image} resizeMode='contain' style={{width:400,height:265,alignSelf:'center'}} key={index}/>
+                                   ))}
+                                </Swiper>
+                                <View>
+                                <TouchableOpacity style={{ borderRadius: 20,padding: 14,elevation: 2,backgroundColor:'#F6F6F6'}} onPress={()=> {setModal(false);}}>
+                                      <Text> Закрыть </Text>
+                                  </TouchableOpacity>
+                                  </View> 
+                              </View>
+                            </View>
+                          </Modal>
+                        <ScrollView horizontal
+                        showsHorizontalScrollIndicator={false}
+                        >
+                            <View style={styles.gallery}>
+                              {statee.img.map((image,index)=>(                             
+                                 <TouchableOpacity key={index} onPress={()=> {
+                                   setModal(true);
+                                 }}>
+                                <Image source={image.image} style={{width:90,height:90,marginLeft:10,marginTop:10,resizeMode:'cover'}}/>
+                              </TouchableOpacity>
+                                ))}     
+                                </View>
+                        </ScrollView>
+                        <View style={{...styles.sec,borderTopWidth:1,borderTopColor: '#f3f3f3',marginTop:5}}>
+                                 <Text style={{fontSize:18}}> Адрес: Фурманова 139 </Text>
+                        </View>
+                  <View style={{height:400,borderBottomWidth: 1,borderBottomColor: '#f3f3f3',borderTopWidth:1,borderTopColor: '#f3f3f3',marginTop:5}}>
+                    <Container>             
+                      <Header hasTabs style={{backgroundColor:'white',height:0}} androidStatusBarColor='black' />
+                          <Tabs>
+                            <Tab heading={<TabHeading style={{backgroundColor:'black'}}><Text style={{fontSize:14,color:'white'}}>ПН</Text></TabHeading>}>
+                               <Graphic_ponedelnik/>
+                            </Tab>
+                            <Tab heading={<TabHeading style={{backgroundColor:'black'}}><Text style={{fontSize:14,color:'white'}}>ВТ</Text></TabHeading>}>
+                                <Graphic_Vtornik/>
+                            </Tab>
+                            <Tab heading={<TabHeading style={{backgroundColor:'black'}}><Text style={{fontSize:14,color:'white'}}>СР</Text></TabHeading>}>
+                                  <Graphic_Sreda />
+                            </Tab>
+                            <Tab heading={<TabHeading style={{backgroundColor:'black'}}><Text style={{fontSize:14,color:'white'}}>ЧТ</Text></TabHeading>}>
+                                  <Graphic_ponedelnik />
+                            </Tab>
+                            <Tab heading={<TabHeading style={{backgroundColor:'black'}}><Text style={{fontSize:14,color:'white'}}>ПТ</Text></TabHeading>}>
+                                  <Graphic_Sreda />
+                            </Tab>
+                            <Tab heading={<TabHeading style={{backgroundColor:'black'}}><Text style={{fontSize:14,color:'white'}}>СБ</Text></TabHeading>}>
+                                  <Graphic_Sreda />
+                            </Tab>
+                            <Tab heading={<TabHeading style={{backgroundColor:'black'}}><Text style={{fontSize:14,color:'white'}}>ВС</Text></TabHeading>}>
+                                  <Graphic_ponedelnik />
+                            </Tab>
+                          </Tabs>
+                   </Container>
+                       <View style={{marginBottom:2,marginLeft:10,padding:10}}>
+                          <Text style={{fontSize:15}}> В данном графике указывается загруженность заведения в определенные дни и часы.</Text>
+                      </View>
+                </View>
                 <View style={styles.sec}>
-                  <Text style={styles.sectionContent}>
-                  ​Средний чек 3000 тнг.
-                  </Text>
-                  <Text style={styles.sectionContent}>
-                  ​Восточная кухня​
-                  </Text>
-                  <Text style={styles.sectionContent}>​
-                  Турецкая кухня​
-                  </Text>
-                  <Text style={styles.sectionContent}>
-                  ​Спортивные трансляции
-                  </Text>
-                  <Text style={styles.sectionContent}>
-                  ​До 40 мест
-                  </Text>
+                    <Text style={styles.sectionContent}>
+                    ​Средний чек {itemData.bill} тнг.
+                    </Text>
+                    <Text style={styles.sectionContent}>
+                    {itemData.kitchen}
+                    </Text>
+                    <Text style={styles.sectionContent}>​
+                    Турецкая кухня​
+                    </Text>
+                    <Text style={styles.sectionContent}>
+                    {itemData.dop_info}
+                    </Text>
+                    <Text style={styles.sectionContent}>
+                    ​До {itemData.mest} мест
+                    </Text>
                 </View>
-                <View style={styles.button}>
-                <TouchableOpacity 
-                onPress ={() => {}}
-                  style={[styles.order, {
-                    borderColor: '#000',
-                    borderWidth: 1
-                  }]}
-                >
-                  <Text style={[styles.textSign, {
-                    color: '#000'
-                  }]}>Order Now</Text>
-
-                </TouchableOpacity>
+                   <View style={styles.button}>
+                      <TouchableOpacity 
+                      onPress ={() => navigation.navigate('Reservation',{itemData:itemData})}
+                        style={[styles.order, {
+                          borderColor: '#000',
+                          borderWidth: 1
+                        }]}>
+                      <Text style={[styles.textSign, {
+                        color: '#000'
+                      }]}>Order Now</Text>
+                    </TouchableOpacity>
                 </View>
-                </ScrollView>
-                </View>
-                
-    
+            </ScrollView>
+          </View>
     </Animatable.View>
     </ScrollView>
   );
@@ -155,39 +200,42 @@ export default Cardtwo;
 
 
 const styles = StyleSheet.create({
-
-    categoryContainer: {
-      flexDirection: 'row',
-      width: '90%',
-      alignSelf: 'center',
-      marginBottom:20,
-    },
-      gallery:{
-        marginTop:20,
-        flexDirection:'row',
-        borderBottomWidth:1,
-        borderBottomColor:'#f3f3f3',
+    gallery:{
+      marginTop:20,
+      flexDirection:'row',
+      borderBottomWidth:1,
+      borderBottomColor:'#f3f3f3',
       },
-    listImage:{
-      height: 105,
-      width: 100,
-      borderRadius:20,
-      position: 'relative', // because it's parent
-      top: 7,
-      marginRight:5,
-      marginBottom:20,
-      left: 5,
-    },
+      centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 22
+  },
+    modalView: {
+        margin: 20,
+        borderRadius: 20,
+        height:400,
+        width:430,
+        padding: 35,
+        alignItems: "center",
+      }, 
     titleSign:{
       fontSize:25,
       alignSelf:'center',
       marginBottom:10,
       fontWeight:'normal',
-      textShadowColor: 'rgba(0, 0, 0, 0.75)',
-      textShadowOffset: {width:-1, height: 3},
-      textShadowRadius: 10,
       textTransform:'uppercase',
       color:'#000',
+    },
+    photo:{
+      position:'absolute', 
+      left:0, 
+      top:0,
+      marginBottom:10,
+      marginLeft:10,
+      fontSize:16,
+      color:'gray'
     },
     sectionContent: {
       fontSize: 16,
@@ -208,56 +256,35 @@ const styles = StyleSheet.create({
     },
     order: {
       width: '80%',
-      padding:5,
+      padding:10,
+      elevation:3,
+      backgroundColor:'white',
       justifyContent: 'center',
       alignItems: 'center',
-      borderRadius: 5
-  },
-    categoryIcon: {
-      alignItems: 'center',
-      justifyContent:'center',
-      alignSelf: 'center',
-    },
-    categoryBtnTxt: {
-      marginTop:0,
-      fontSize:12,
-      alignSelf:'center',
-      color: '#000',
-    },
-    categoryBtn: {
-      flex: 1,
-      width: '26%',
-      marginHorizontal: 0,
-      alignSelf: 'center',
-    },
-    name:{
-      fontWeight:'700',
-      fontSize:20,
-      position:'absolute',
-      top:220,
-      padding:20,
+      borderRadius: 20
     },
     button: {
       marginTop:10,
+      height:50,
       alignItems: 'center'
     },
     textSign: {
       fontSize: 20,
       fontWeight: 'bold'
-  },
+    },
     image:{
-        width:'100%',
-        height:'98%',
-        resizeMode:'contain',
-        position:'absolute',
-        bottom:0,
-        right:0,
-        top:0,
+      width:'100%',
+      height:'98%',
+      resizeMode:'contain',
+      position:'absolute',
+      bottom:0,
+      right:0,
+      top:0,
     },
     bg: {
       position:'relative',
       width:'100%',
-      height:'80%',
+      height:'100%',
       backgroundColor:'white',
       transform:[{translateY:260}],
       borderRadius:32,

@@ -12,7 +12,7 @@ export default class ProfilePage extends Component {
         <View style = {styles.header}>
             <View style = {styles.avatar}>
                 <Image 
-                    source={require('./img/Image1.png')}  
+                    source={require('./img/logo.png')}  
                     style={styles.avatar} 
                 />
             </View>
