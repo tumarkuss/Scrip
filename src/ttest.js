@@ -5,30 +5,37 @@ import StarRating from './StarRating';
 
 const Card = ({itemData, onPress}) => {
   return (
-    <TouchableOpacity onPress={onPress}>
-      <View style={styles.card}>
-        <View style={styles.cardImgWrapper}>
-          <Image
-            source={itemData.image}
-            resizeMode="cover"
-            style={styles.cardImg}
-          />
-        </View>
-        <View style={styles.cardInfo}>
-          <Text style={styles.cardTitle}>{itemData.title}</Text>
-          <StarRating ratings={itemData.ratings} reviews={itemData.reviews} />
-          <Text numberOfLines={2} style={styles.cardDetails}>{itemData.title}</Text>
-        </View>
-      </View>
-    </TouchableOpacity>
-  );
+    <View style={styles.container}>
+        <TouchableOpacity onPress={onPress}>
+            <View style={styles.card}>
+                <View style={styles.cardImgWrapper}>
+                    <Image
+                        source={itemData.image}
+                        resizeMode="cover"
+                        style={styles.cardImg}/>
+                 </View>
+                <View style={styles.cardInfo}>
+                    <Text style={styles.cardTitle}>{itemData.title}</Text>
+                    <StarRating ratings={itemData.ratings} reviews={itemData.reviews} />
+                    <Text numberOfLines={2} style={styles.cardDetails}>{itemData.title}</Text>
+                </View>
+            </View>
+        </TouchableOpacity>
+</View>
+);
 };
 
 export default Card;
 
 const styles = StyleSheet.create({
+  container:{
+    flex:1,
+    backgroundColor:'#fff',
+    width:'90%',
+    alignSelf:'center'
+  },
   card: {
-    height: 150,
+    height: 120,
     marginVertical: 10,
     flexDirection: 'row',
     shadowColor: '#999',

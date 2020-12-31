@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
-import { Text, View, StyleSheet,TouchableOpacity, ImageBackground,ScrollView,StatusBar,Modal,Dimensions,Image} from 'react-native';
+import { Text, View, StyleSheet,TouchableOpacity,TouchableHighlight, ImageBackground,ScrollView,StatusBar,Modal,Dimensions,Image,TouchableWithoutFeedback} from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import Modalcard from './Modalcard';
+import { TabView, SceneMap } from 'react-native-tab-view';
 import { VictoryBar, VictoryChart,VictoryTheme } from "victory-native";
 import { Container, Header, Tab, Tabs, TabHeading } from 'native-base';
-import ImageGallery from './ImageGallery';
-import Ionicons from '@expo/vector-icons/Ionicons';
-import Swiper from 'react-native-swiper';
+import Gallery from './Gallery';
+import Akcii from './Akcii';
 
 const WINDOW_WIDTH = Dimensions.get('window').width;
 
@@ -26,56 +26,76 @@ const Images={
   ]
 };
 
-
+const images = [ {
+  url: '',
+  props: {
+      // Or you can set source directory.
+      source: require('./img/Kowloon1.jpg')
+  }
+}, {
+  url: '',
+  props: {
+      // Or you can set source directory.
+      source: require('./img/Kowloon2.jpg')
+  }
+},
+{
+  url: '',
+  props: {
+      // Or you can set source directory.
+      source: require('./img/Kowloon3.jpg')
+  }
+},
+];
 
 const Cardtwo = ({route,navigation}) => {
-
-    const Graphic_Sreda = () => { 
-          return(
-            <View>
-              <View style={{alignSelf:'center'}}>
-                  <VictoryChart width={310} height={300} theme={VictoryTheme.material} domainPadding={{x: [10, 0]}} domain={{y:[0,100]}}>
-                      <VictoryBar style={{data:{fill:'#c43a31'}}}  data={itemData.dataSR} x="time" y="percent"/>
-                  </VictoryChart>
-                </View> 
-            </View>
-  )};
-  const Graphic_Vtornik = () => {
+  
+  const Graphic_Sreda = () => { 
     return(
-    <View>
-    <View style={{alignSelf:'center'}}>
-         <VictoryChart width={310} height={300} theme={VictoryTheme.material} domainPadding={{x: [10, 0]}} domain={{y:[0,100]}}>
-          <VictoryBar style={{data:{fill:'#c43a31'}}}  data={itemData.dataVT} x="time" y="percent"/>
-          </VictoryChart>
-    </View>
+      <View>
+        <View style={{alignSelf:'center'}}>
+            <VictoryChart width={310} height={300} theme={VictoryTheme.material} domainPadding={{x: [10, 0]}} domain={{y:[0,100]}}>
+                <VictoryBar style={{data:{fill:'#c43a31'}}}  data={itemData.dataSR} x="time" y="percent"/>
+            </VictoryChart>
+          </View> 
+      </View>
+  )};
+const Graphic_Vtornik = () => {
+return(
+<View>
+<View style={{alignSelf:'center'}}>
+ <VictoryChart width={310} height={300} theme={VictoryTheme.material} domainPadding={{x: [10, 0]}} domain={{y:[0,100]}}>
+  <VictoryBar style={{data:{fill:'#c43a31'}}}  data={itemData.dataVT} x="time" y="percent"/>
+  </VictoryChart>
 </View>
-    )};
-  const Graphic_ponedelnik = () => {
-      return(
-        <View>
-          <View style={{alignSelf:'center'}}>
-              <VictoryChart width={310} height={300} theme={VictoryTheme.material} domainPadding={{x: [10, 0]}} domain={{y:[0,100]}}>
-                  <VictoryBar style={{data:{fill:'#c43a31'}}}  data={itemData.dataPN} x="time" y="percent"/>
-              </VictoryChart>
-            </View> 
-        </View>
+</View>
 )};
-
+const Graphic_ponedelnik = () => {
+return(
+<View>
+  <View style={{alignSelf:'center'}}>
+      <VictoryChart width={310} height={300} theme={VictoryTheme.material} domainPadding={{x: [10, 0]}} domain={{y:[0,100]}}>
+          <VictoryBar style={{data:{fill:'#c43a31'}}}  data={itemData.dataPN} x="time" y="percent"/>
+      </VictoryChart>
+    </View> 
+</View>
+)};
   const itemData = route.params.itemData;
   const [statee,setStatee] = React.useState(Images);
-  const [modal,setModal] = useState(false);
+
 
     return (
       <ScrollView horizontal={false} showsVerticalScrollIndicator={false} >
-    <Animatable.View style={{flex:1}}
-    animation="slideInUp"
-    delay={200}>
-    <View 
-    style={[
-      StyleSheet.absoluteFillObject,
-      {flex:1, backgroundColor:'white',height:322}]}>
-      <ImageBackground source={itemData.image} style={styles.image}/>
-      </View>
+          <Animatable.View style={{flex:1}}
+          animation="slideInUp"
+          delay={200}>
+              <View 
+              style={[
+                StyleSheet.absoluteFillObject,
+                {flex:1, backgroundColor:'white',height:322}]}>
+                  <ImageBackground source={itemData.image} style={styles.image}/>
+               </View>
+      <StatusBar style="auto" />
       <View style={styles.bg}> 
       <ScrollView contentContainerStyle={{flexGrow:1,paddingBottom:300}} > 
        <Modalcard/> 
@@ -85,81 +105,74 @@ const Cardtwo = ({route,navigation}) => {
                             <Text style={styles.sectionContent}>  {itemData.opisanie_dva}
                             </Text>
                </View>
-                    <View>
+                    <View style={{marginBottom:25}}>
                         <Text style={styles.photo}>Фотографии</Text>
                     </View>
-                          <Modal
-                          transparent={true}
-                          animationTyp="slide"
-                          visible={modal}
-                          onRequestClose={()=> {setModal(false);}}>
-                            <View style={styles.centeredView}>
-                              <View style={styles.modalView}>
-                               <Swiper
-                                autoplay={false} 
-                                showsPagination={false}
-                                showsButtons={true}
-                                activeDotColor={'gray'} 
-                                dotColor={'white'}>
-                                {statee.img.map((image,index)=>( 
-                                  <Image source={image.image} resizeMode='contain' style={{width:400,height:265,alignSelf:'center'}} key={index}/>
-                                   ))}
-                                </Swiper>
-                                <View>
-                                <TouchableOpacity style={{ borderRadius: 20,padding: 14,elevation: 2,backgroundColor:'#F6F6F6'}} onPress={()=> {setModal(false);}}>
-                                      <Text> Закрыть </Text>
-                                  </TouchableOpacity>
-                                  </View> 
-                              </View>
-                            </View>
-                          </Modal>
-                        <ScrollView horizontal
-                        showsHorizontalScrollIndicator={false}
-                        >
-                            <View style={styles.gallery}>
-                              {statee.img.map((image,index)=>(                             
-                                 <TouchableOpacity key={index} onPress={()=> {
-                                   setModal(true);
-                                 }}>
-                                <Image source={image.image} style={{width:90,height:90,marginLeft:10,marginTop:10,resizeMode:'cover'}}/>
-                              </TouchableOpacity>
-                                ))}     
+                            <ScrollView
+                            horizontal
+                            showsHorizontalScrollIndicator={false}
+                            >
+                              <View style={{  
+                                        flexDirection:'row',
+                                        borderBottomWidth:1,
+                                        height:90,
+                                        borderBottomColor:'#f3f3f3'}}>
+                        <TouchableHighlight style={{marginLeft:5}}
+                        onPress={() => navigation.navigate('Gallery')}>
+                            <Image source={require('./img/Kowloon1.jpg')} style={{width:90,height:90,resizeMode:'cover'}}/>
+                        </TouchableHighlight>
+                        <TouchableHighlight style={{marginLeft:5}}
+                        onPress={() => navigation.navigate('Gallery')}>
+                            <Image source={require('./img/Kowloon2.jpg')} style={{width:90,height:90,resizeMode:'cover'}}/>
+                         </TouchableHighlight>
+                          <TouchableHighlight style={{marginLeft:5}}
+                        onPress={() => navigation.navigate('Gallery')}>
+                            <Image source={require('./img/Kowloon3.jpg')} style={{width:90,height:90,resizeMode:'cover'}}/>
+                         </TouchableHighlight>
+                          <TouchableHighlight style={{marginLeft:5}}
+                        onPress={() => navigation.navigate('Gallery')}>
+                            <Image source={require('./img/Image1.png')} style={{width:90,height:90,resizeMode:'cover'}}/>
+                          </TouchableHighlight>
+                          <TouchableHighlight style={{marginLeft:5}}
+                        onPress={() => navigation.navigate('Gallery')}>
+                            <Image source={require('./img/Kowloon5.jpg')} style={{width:90,height:90,resizeMode:'cover'}}/>
+                          </TouchableHighlight>
                                 </View>
                         </ScrollView>
                         <View style={{...styles.sec,borderTopWidth:1,borderTopColor: '#f3f3f3',marginTop:5}}>
                                  <Text style={{fontSize:18}}> Адрес: Фурманова 139 </Text>
                         </View>
-                  <View style={{height:400,borderBottomWidth: 1,borderBottomColor: '#f3f3f3',borderTopWidth:1,borderTopColor: '#f3f3f3',marginTop:5}}>
-                    <Container>             
-                      <Header hasTabs style={{backgroundColor:'white',height:0}} androidStatusBarColor='black' />
-                          <Tabs>
-                            <Tab heading={<TabHeading style={{backgroundColor:'black'}}><Text style={{fontSize:14,color:'white'}}>ПН</Text></TabHeading>}>
-                               <Graphic_ponedelnik/>
-                            </Tab>
-                            <Tab heading={<TabHeading style={{backgroundColor:'black'}}><Text style={{fontSize:14,color:'white'}}>ВТ</Text></TabHeading>}>
-                                <Graphic_Vtornik/>
-                            </Tab>
-                            <Tab heading={<TabHeading style={{backgroundColor:'black'}}><Text style={{fontSize:14,color:'white'}}>СР</Text></TabHeading>}>
-                                  <Graphic_Sreda />
-                            </Tab>
-                            <Tab heading={<TabHeading style={{backgroundColor:'black'}}><Text style={{fontSize:14,color:'white'}}>ЧТ</Text></TabHeading>}>
-                                  <Graphic_ponedelnik />
-                            </Tab>
-                            <Tab heading={<TabHeading style={{backgroundColor:'black'}}><Text style={{fontSize:14,color:'white'}}>ПТ</Text></TabHeading>}>
-                                  <Graphic_Sreda />
-                            </Tab>
-                            <Tab heading={<TabHeading style={{backgroundColor:'black'}}><Text style={{fontSize:14,color:'white'}}>СБ</Text></TabHeading>}>
-                                  <Graphic_Sreda />
-                            </Tab>
-                            <Tab heading={<TabHeading style={{backgroundColor:'black'}}><Text style={{fontSize:14,color:'white'}}>ВС</Text></TabHeading>}>
-                                  <Graphic_ponedelnik />
-                            </Tab>
-                          </Tabs>
-                   </Container>
-                       <View style={{marginBottom:2,marginLeft:10,padding:10}}>
-                          <Text style={{fontSize:15}}> В данном графике указывается загруженность заведения в определенные дни и часы.</Text>
-                      </View>
-                </View>
+                        <View style={{height:400,borderBottomWidth: 1,borderBottomColor: '#f3f3f3',borderTopWidth:1,borderTopColor: '#f3f3f3'}}>
+            <Container>             
+              <Header hasTabs style={{backgroundColor:'white',height:0}} androidStatusBarColor='white' />
+                  <Tabs tabContainerStyle={{backgroundColor:"white"}} tabBarUnderlineStyle={{backgroundColor:'black'}}>
+                    <Tab heading={<TabHeading style={{backgroundColor:'white'}}><Text style={{fontSize:14,color:'black'}}>ПН</Text></TabHeading>}>
+                       <Graphic_ponedelnik/>
+                    </Tab>
+                    <Tab heading={<TabHeading style={{backgroundColor:'white'}}><Text style={{fontSize:14,color:'black'}}>ВТ</Text></TabHeading>}>
+                        <Graphic_Vtornik/>
+                    </Tab>
+                    <Tab heading={<TabHeading style={{backgroundColor:'white'}}><Text style={{fontSize:14,color:'black'}}>СР</Text></TabHeading>}>
+                          <Graphic_Sreda />
+                    </Tab>
+                    <Tab heading={<TabHeading style={{backgroundColor:'white'}}><Text style={{fontSize:14,color:'black'}}>ЧТ</Text></TabHeading>}>
+                          <Graphic_ponedelnik />
+                    </Tab>
+                    <Tab heading={<TabHeading style={{backgroundColor:'white'}}><Text style={{fontSize:14,color:'black'}}>ПТ</Text></TabHeading>}>
+                          <Graphic_Sreda />
+                    </Tab>
+                    <Tab heading={<TabHeading style={{backgroundColor:'white'}}><Text style={{fontSize:14,color:'black'}}>СБ</Text></TabHeading>}>
+                          <Graphic_Sreda />
+                    </Tab>
+                    <Tab heading={<TabHeading style={{backgroundColor:'white'}}><Text style={{fontSize:14,color:'black'}}>ВС</Text></TabHeading>}>
+                          <Graphic_ponedelnik />
+                    </Tab>
+                  </Tabs>
+           </Container>
+               <View style={{marginBottom:2,marginLeft:10,padding:10}}>
+                  <Text style={{fontSize:15}}> В данном графике указывается загруженность заведения в определенные дни и часы.</Text>
+              </View>
+        </View>
                 <View style={styles.sec}>
                     <Text style={styles.sectionContent}>
                     ​Средний чек {itemData.bill} тнг.
@@ -189,6 +202,41 @@ const Cardtwo = ({route,navigation}) => {
                       }]}>Order Now</Text>
                     </TouchableOpacity>
                 </View>
+                <ScrollView
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+                >
+                  <View style={{flexDirection:'row'}}>
+                  <View style={{marginLeft:10}}>
+                    <View style={{marginTop:10,height:97}}>
+                      <Image style={{width:92,height:97}}
+                      source={require('./img/logo.png')}/>
+                    </View>
+                    <View>
+                      <Text>
+                        Дэвид Бэкхем
+                      </Text>
+                      <Text style={{fontSize:12}}>
+                        Официант
+                      </Text>
+                    </View>
+                  </View>
+                  <View style={{marginLeft:10}}>
+                    <View style={{marginTop:10,height:97}}>
+                      <Image style={{width:92,height:97}}
+                      source={require('./img/logo.png')}/>
+                    </View>
+                    <View>
+                      <Text>
+                        Дэвид Бэкхем
+                      </Text>
+                      <Text style={{fontSize:12}}>
+                        Шеф-повар
+                      </Text>
+                    </View>
+                  </View>
+                  </View>
+                </ScrollView>
             </ScrollView>
           </View>
     </Animatable.View>
@@ -223,7 +271,7 @@ const styles = StyleSheet.create({
     titleSign:{
       fontSize:25,
       alignSelf:'center',
-      marginBottom:10,
+      marginBottom:15,
       fontWeight:'normal',
       textTransform:'uppercase',
       color:'#000',
@@ -237,6 +285,21 @@ const styles = StyleSheet.create({
       fontSize:16,
       color:'gray'
     },
+    photoGallery: {
+      flex: 1,
+      marginTop:5,
+  },
+  photoBackground: {
+      flex: 1,
+      width:391.8,
+      height:300,
+      marginBottom:10,
+      marginTop:20
+  },
+  photoPhoto: {
+      width:400,
+      height:300,
+  },
     sectionContent: {
       fontSize: 16,
       textAlign:'justify',

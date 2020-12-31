@@ -6,13 +6,14 @@ import {
     Image
 } from "react-native";
 
+
 class Akcii extends Component {
     render() {
         return (
-          <View style={{flex:1}}>
+          <View style={{flex:1,flexDirection:'row'}}>
           <View style={{height:130, width:93,padding:2}}>
           <Image 
-            source={this.props.imageUri}
+            source={require('./img/k1.jpg')}
             style={styles.sliderImage}
           />
           </View>

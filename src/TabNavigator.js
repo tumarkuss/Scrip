@@ -2,6 +2,7 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { HomeNavigator, ProfileNavigator, NotificationsNavigator, FavoritesNavigator } from "./StackNavigator";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import Register from "./Register";
 
 
 const Tab = createBottomTabNavigator();

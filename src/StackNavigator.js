@@ -16,13 +16,29 @@ import Notifications from "./Notifications";
 import Rest from "./Rest";
 import ProfilePage from "./ProfilePage";
 import Favorites from "./Favorites";
+import Register from './Register';
+import Gallery from "./Gallery";
+import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
+
 
 const Stack = createStackNavigator();
 
 
-const HomeNavigator = () => {
+
+const HomeNavigator = ({navigation,route}) => {
+  React.useLayoutEffect(() => {
+  const routeName = getFocusedRouteNameFromRoute(route);
+  if (routeName === "Cardtwo") {
+    navigation.setOptions({tabBarVisible:false});
+  } else if (routeName === "Gallery") {
+    navigation.setOptions({tabBarVisible:false});
+  } 
+  else {
+    navigation.setOptions({tabBarVisible:true});
+  }
+  }, [navigation,route]);
   return(
-  <Stack.Navigator >
+  <Stack.Navigator>
     <Stack.Screen  name="INline" component={MainTab}
     options={() => 
   ({
@@ -50,10 +66,20 @@ const HomeNavigator = () => {
         headerTintColor:'#fff',
       })
       }/>
+      <Stack.Screen name="Gallery" component={Gallery} 
+          options={() => 
+            ({
+              headerBackTitleVisible:false,
+              headerTitle:false,
+              headerTransparent:true,
+              headerTintColor:'#fff',
+            })
+          }/>
       <Stack.Screen name="Reservation" component={Reservation}/>
   </Stack.Navigator>
 );
 };
+
 
 const FavoritesNavigator = () => {
   return (
@@ -80,4 +106,4 @@ const NotificationsNavigator = () => {
       </Stack.Navigator>
     );
   };
-  export { HomeNavigator, FavoritesNavigator, NotificationsNavigator, ProfileNavigator };
+  export { HomeNavigator, FavoritesNavigator, NotificationsNavigator, ProfileNavigator};

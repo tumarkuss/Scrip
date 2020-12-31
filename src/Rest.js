@@ -1,9 +1,9 @@
 import React from 'react';
-import { SafeAreaView, FlatList, StyleSheet} from 'react-native';
+import { SafeAreaView, FlatList,View, StyleSheet} from 'react-native';
 import {DATA} from './data';
 import Reservation from './Reservation';
 import Card from './ttest';
-
+import MainTab from './MainTab';
 
 const Rest = ({navigation}) => {
   const renderItem = ({item}) => {
@@ -12,6 +12,7 @@ const Rest = ({navigation}) => {
         itemData={item}
         onPress={() => navigation.navigate('Cardtwo',{itemData:item})}
     />
+   
     )
   };
 
@@ -30,7 +31,8 @@ const Rest = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width:'90%',
+    backgroundColor:'white',
+    width:'100%',
     alignSelf:'center'
   },
   item: {

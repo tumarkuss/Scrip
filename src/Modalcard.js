@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import { Text, View, StyleSheet,TouchableOpacity,Modal} from 'react-native';
+import { Text, View, StyleSheet,TouchableOpacity,Modal,Image,ScrollView} from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-
+import Menu from './Menu';
 
 const Modalcard = () => {
   const [modal, setModal] = useState(false);
@@ -16,23 +16,21 @@ const Modalcard = () => {
         visible={modal}
         onRequestClose={() => { setModal(false);} }
       >
-        <TouchableOpacity 
-        style={styles.container}
-        activeOpacity={1}
-        onPressOut={() => { setModal(false);} }>
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <TouchableOpacity
-              style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
-              onPress={() => {
-                setModal(false);
-              }}
-            >
-              <Text style={styles.textStyle}>Hide Modal</Text>
-            </TouchableOpacity>
+        <View style={styles.centeredMenu}>
+          <View style={styles.modalMenu}>
+            <Menu/>
+            <View style={{marginTop:10}}>
+                <TouchableOpacity
+                  style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
+                  onPress={() => {
+                    setModal(false);
+                  }}
+                >
+                       <Text style={styles.textStyle}>Закрыть меню</Text>
+                  </TouchableOpacity>
+            </View>
           </View>
         </View>
-        </TouchableOpacity>
       </Modal>     
       <Modal
         transparent={true}
@@ -126,7 +124,7 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       width: '90%',
       alignSelf: 'center',
-      marginBottom:20,
+      marginBottom:10,
     },
     openButton: {
       borderRadius: 20,
@@ -137,6 +135,27 @@ const styles = StyleSheet.create({
       color: "black",
       fontWeight: "bold",
       textAlign: "center"
+    },
+    centeredMenu: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems:'center',
+      marginTop: 22
+  },
+  modalMenu: {
+      backgroundColor: "white",
+      borderRadius: 20,
+      padding: 35,
+      alignItems: "center",
+      width:370,
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 2
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+      elevation: 5
     },
     centeredView: {
         flex: 1,

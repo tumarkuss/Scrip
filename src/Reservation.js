@@ -46,7 +46,7 @@ const Reservation = ({route}) => {
                 onRequestClose={()=> {setModal(false);}}>
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
-                    <Image style={{resizeMode:'stretch',width:300,height:300,marginBottom:20,borderRadius:5}} source={require('./img/sixpeople.jpg')}/>
+                    <Image style={{resizeMode:'stretch',width:300,height:300,marginBottom:20}} source={require('./img/sixpeople.jpg')}/>
                         <View style={{flexDirection:'row'}}>
                         <TouchableOpacity
                         style={{ ...styles.openButton, backgroundColor: "#2196F3",marginRight:30 }}
